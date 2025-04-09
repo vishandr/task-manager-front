@@ -31,3 +31,22 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
+// const isDev = !app.isPackaged;
+
+// function createWindow() {
+//   const mainWindow = new BrowserWindow({
+//     width: 1000,
+//     height: 800,
+//     webPreferences: {
+//       nodeIntegration: false,
+//       contextIsolation: true,
+//     },
+//   });
+
+//   if (isDev) {
+//     mainWindow.loadURL('http://localhost:5173'); // dev-server от Vite
+//   } else {
+//     mainWindow.loadFile(path.join(__dirname, '../dist/index.html')); // прод-режим
+//   }
+// }
