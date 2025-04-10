@@ -6,22 +6,13 @@ import {
   Checkbox,
   TextField,
   FormControlLabel,
+  Typography,
 } from '@mui/material';
-import { useState, useEffect } from 'react';
-import { getTasks } from '../api';
+import { useState } from 'react';
 
-export default function TaskList({ onSelect }) {
-  const [tasks, setTasks] = useState([]);
+export default function TaskList({ tasks, onSelect }) {
   const [showCompleted, setShowCompleted] = useState(false);
   const [search, setSearch] = useState('');
-
-  useEffect(() => {
-    const fetch = async () => {
-      const data = await getTasks();
-      setTasks(data);
-    };
-    fetch();
-  }, []);
 
   const filteredTasks = tasks.filter((task) => {
     const matchesStatus = showCompleted ? task.isCompleted : !task.isCompleted;
@@ -41,7 +32,6 @@ export default function TaskList({ onSelect }) {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-
       <FormControlLabel
         control={
           <Checkbox
@@ -51,37 +41,24 @@ export default function TaskList({ onSelect }) {
         }
         label='Показать выполненные'
       />
-      <List>
-        {filteredTasks.map((task) => (
-          <ListItem button key={task.id} onClick={() => onSelect(task)}>
-            <ListItemText
-              primary={task.title}
-              secondary={task.isCompleted ? '✅ Completed' : '❌ Not completed'}
-            />
-          </ListItem>
-        ))}
-      </List>
+      {filteredTasks.length === 0 ? (
+        <Typography variant='body2' color='text.secondary'>
+          Задач не найдено.
+        </Typography>
+      ) : (
+        <List>
+          {filteredTasks.map((task) => (
+            <ListItem button key={task.id} onClick={() => onSelect(task)}>
+              <ListItemText
+                primary={task.title}
+                secondary={
+                  task.isCompleted ? '✅ Completed' : '❌ Not completed'
+                }
+              />
+            </ListItem>
+          ))}
+        </List>
+      )}
     </Box>
   );
 }
-
-// const allTasks = [
-//   {
-//     id: 1,
-//     title: 'Buy milk',
-//     description: 'buy a carton of milk and if they have eggs, get six',
-//     isCompleted: false,
-//   },
-//   {
-//     id: 2,
-//     title: 'Finish project',
-//     description: 'Try to make it ready till friday',
-//     isCompleted: true,
-//   },
-//   {
-//     id: 3,
-//     title: 'Walk the dog',
-//     description: 'Walk with dogs twice a day',
-//     isCompleted: false,
-//   },
-// ];

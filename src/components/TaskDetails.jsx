@@ -8,13 +8,17 @@ import {
   Typography,
 } from '@mui/material';
 
-export default function TaskDetails({ task }) {
+export default function TaskDetails({ onSave, task }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
-    if (task) {
+    if (!task?.id) {
+      setTitle('');
+      setDescription('');
+      setIsCompleted(false);
+    } else {
       setTitle(task.title);
       setDescription(task.description);
       setIsCompleted(task.isCompleted);
@@ -24,17 +28,23 @@ export default function TaskDetails({ task }) {
   if (!task) {
     return <Typography>Select a task to see details</Typography>;
   }
-
+  const isNew = !task?.id;
   const handleSave = async () => {
+    const url = isNew
+      ? 'http://localhost:3000/tasks'
+      : `http://localhost:3000/tasks/${task.id}`;
+
+    const method = isNew ? 'POST' : 'PUT';
     try {
-      await fetch(`http://localhost:3000/tasks/${task.id}`, {
-        method: 'PUT',
+      await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ title, description, isCompleted }),
       });
-      alert('Задача обновлена!');
+      onSave?.();
+      alert(isNew ? 'Задача создана!' : 'Задача обновлена!');
     } catch (error) {
       alert('Ошибка при обновлении задачи');
       console.error(error);
@@ -49,6 +59,7 @@ export default function TaskDetails({ task }) {
       await fetch(`http://localhost:3000/tasks/${task.id}`, {
         method: 'DELETE',
       });
+      onSave?.();
       alert('Задача удалена!');
       window.location.reload(); // или обновить список через проп
     } catch (error) {
