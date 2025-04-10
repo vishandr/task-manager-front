@@ -19,8 +19,8 @@ backEnd
 
 2. **Установите зависимости:**
    Установите все зависимости для клиентской и серверной части:
-   <pre> ```bash cd client npm install
-   cd server npm install``` </pre>
+   <pre> cd client npm install
+   cd server npm install</pre>
 
 3. **Настройка базы данных:**
 
@@ -31,8 +31,8 @@ backEnd
 Сначала запустите сервер бекэнда. Откройте папку проекта в терминале и выполните команду npm start.
 В другом окне терминала перейдите в папку фронтенда и запустите сервер разработки для фронтенда:
 
-<pre> ```bash npm run dev
-npm run electron``` </pre>
+<pre> bash npm run dev
+npm run electron </pre>
 
 Если вы хотите запустить проект в режиме разработки с сервером Electron и Vite одновременно, используйте команду:
 `npm run dev:electron`
