@@ -1,12 +1,38 @@
-# React + Vite
+# Task Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Task Manager — это тестовое приложение для управления задачами, написанное с использованием React.js для клиентской части и Electron.js для упаковки приложения в настольное приложение. В проекте используется API для работы с задачами, поддерживаются функции создания, редактирования и удаления задач.
 
-Currently, two official plugins are available:
+## Стек технологий:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend**: React.js, Material UI, Vite
+- **Backend**: Nest.js, TypeORM
+- **Database**: PostgreSQL
 
-## Expanding the ESLint configuration
+## Установка и запуск проекта
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. **Клонируйте репозиторий:**
+   frontEnd
+   `git clone https://github.com/vishandr/task-manager-front`
+
+backEnd
+`git clone https://github.com/vishandr/task-manager`
+
+2. **Установите зависимости:**
+   Установите все зависимости для клиентской и серверной части:
+   <pre> ```bash cd client npm install
+   cd server npm install``` </pre>
+
+3. **Настройка базы данных:**
+
+Для работы с базой данных PostgreSQL нужно настроить параметры в файле `.env`. Пример файла `.env.example` можно найти в проекте. Переименуйте файл `.env.example` на `.env` для подключения к базе данных.
+
+4. **Запуск проекта:**
+
+Сначала запустите сервер бекэнда. Откройте папку проекта в терминале и выполните команду npm start.
+В другом окне терминала перейдите в папку фронтенда и запустите сервер разработки для фронтенда:
+
+<pre> ```bash npm run dev
+npm run electron``` </pre>
+
+Если вы хотите запустить проект в режиме разработки с сервером Electron и Vite одновременно, используйте команду:
+`npm run dev:electron`
